@@ -26,7 +26,7 @@ if (addresses == '192.168.192.60') {
 } else {
     // Remote
     var dirname = "/home/steve/upload_dir/images";
-       var route_folder = '/';
+    var route_folder = '/';
 }
 
 
