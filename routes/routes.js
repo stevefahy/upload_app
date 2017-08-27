@@ -21,11 +21,14 @@ for (var k in interfaces) {
 // Dell XPS 13
 if (addresses == '192.168.192.60') {
     // Local
+    var host_url = 'local';
     var dirname = "../upload_dir/images";
 } else {
     // Remote
+    var host_url = 'remote';
     var dirname = "/home/steve/upload_dir/images";
 }
+console.log('dirname: ' + dirname);
 
 
 module.exports = function(app) {
@@ -36,6 +39,7 @@ module.exports = function(app) {
     });
 
     app.post('/upload', function(req, res) {
+        //var dirname = "../upload_dir/images";
         if (req.param('image') != undefined) {
             // Base64 String upload (Android app)
             var b64string = req.param('image');
