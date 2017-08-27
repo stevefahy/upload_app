@@ -2,6 +2,34 @@ var fs = require('fs');
 var formidable = require('formidable');
 var fsextra = require('fs-extra');
 
+// configuration ===============================================================
+// Check for local or production environment
+var os = require('os');
+var interfaces = os.networkInterfaces();
+var addresses = [];
+for (var k in interfaces) {
+    for (var k2 in interfaces[k]) {
+        var address = interfaces[k][k2];
+        if (address.family === 'IPv4' && !address.internal) {
+            addresses.push(address.address);
+        }
+    }
+}
+// Samsung Series 9 laptop
+//if (addresses == '192.168.192.54') {
+// Dell XPS 13
+if (addresses == '192.168.192.60') {
+    // Local
+    var host_url = 'local';
+    var dirname = "../upload_dir/images";
+} else {
+    // Remote
+    var host_url = 'remote';
+    var dirname = "/home/steve/upload_dir/images";
+}
+
+
+
 module.exports = function(app) {
 
     app.get('/', function(req, res) {
@@ -10,7 +38,8 @@ module.exports = function(app) {
     });
 
     app.post('/upload', function(req, res) {
-       var dirname = "../upload_dir/images";
+        console.log(dirname);
+       //var dirname = "../upload_dir/images";
         if (req.param('image') != undefined) {
             // Base64 String upload (Android app)
             var b64string = req.param('image');
