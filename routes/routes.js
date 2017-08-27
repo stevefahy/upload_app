@@ -21,12 +21,12 @@ for (var k in interfaces) {
 // Dell XPS 13
 if (addresses == '192.168.192.60') {
     // Local
-    var host_url = 'local';
     var dirname = "../upload_dir/images";
+    var route_folder = '/upload';
 } else {
     // Remote
-    var host_url = 'remote';
     var dirname = "/home/steve/upload_dir/images";
+       var route_folder = '/';
 }
 
 
@@ -38,7 +38,7 @@ module.exports = function(app) {
 
     });
 
-    app.post('/upload', function(req, res) {
+    app.post(route_folder, function(req, res) {
         console.log(dirname);
        //var dirname = "../upload_dir/images";
         if (req.param('image') != undefined) {
