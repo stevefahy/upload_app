@@ -10,7 +10,7 @@ module.exports = function(app) {
     });
 
     app.post('/upload', function(req, res) {
-        var dirname = "/home/steve/upload_dir/images";
+       var dirname = "../upload_dir/images";
         if (req.param('image') != undefined) {
             // Base64 String upload (Android app)
             var b64string = req.param('image');
