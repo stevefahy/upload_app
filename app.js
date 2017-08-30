@@ -23,7 +23,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-
 // Routes
 require('./routes/routes.js')(app);
 

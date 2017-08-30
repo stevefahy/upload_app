@@ -1,6 +1,7 @@
 var fs = require('fs');
 var formidable = require('formidable');
 var fsextra = require('fs-extra');
+var util = require('util');
 
 // configuration ===============================================================
 // Check for local or production environment
@@ -30,7 +31,6 @@ if (addresses == '192.168.192.60') {
 }
 
 
-
 module.exports = function(app) {
 
     app.get('/', function(req, res) {
@@ -39,8 +39,6 @@ module.exports = function(app) {
     });
 
     app.post(route_folder, function(req, res) {
-        console.log(dirname);
-       //var dirname = "../upload_dir/images";
         if (req.param('image') != undefined) {
             // Base64 String upload (Android app)
             var b64string = req.param('image');
@@ -57,26 +55,26 @@ module.exports = function(app) {
             // Multipart form upload (Web)
             var form = new formidable.IncomingForm();
             form.parse(req, function(err, fields, files) {
-
+                //console.log(util.inspect({ fields: fields, files: files }));
             });
-            // TODO update for multiple files?
             form.on('end', function(fields, files) {
-                /* Temporary location of our uploaded file */
-                var temp_path = this.openedFiles[0].path;
-                /* The file name of the uploaded file */
-                var file_name = this.openedFiles[0].name;
-                /* Location where we want to copy the uploaded file */
-                //var newPath = dirname + "/uploads/" + file_name;
-                var newPath = dirname + "/" + file_name;
-                fsextra.copy(temp_path, newPath, function(err) {
-                    if (err) {
-                        console.error(err);
-                        res.json({ 'response': "Error" });
-                    } else {
-                        console.log("success!");
-                        res.json({ 'response': "Saved" });
-                    }
-                });
+                for (var i = 0; i < this.openedFiles.length; i++) {
+                    /* Temporary location of our uploaded file */
+                    var temp_path = this.openedFiles[i].path;
+                    /* The file name of the uploaded file */
+                    var file_name = this.openedFiles[i].name;
+                    /* Location where we want to copy the uploaded file */
+                    var newPath = dirname + "/" + file_name;
+                    fsextra.copy(temp_path, newPath, function(err) {
+                        if (err) {
+                            console.error(err);
+                            res.json({ 'response': "Error" });
+                        } else {
+                            console.log("success!");
+                            res.json({ 'response': "Saved" });
+                        }
+                    });
+                }
             });
             return;
         }
