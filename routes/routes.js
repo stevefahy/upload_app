@@ -45,7 +45,7 @@ module.exports = function(app) {
             var b64string = req.param('image');
             var buf = Buffer.from(b64string, 'base64');
             var newPath = dirname + "/" + file_name;
-            fs.writeFile(newPath, buf, file_name, function(err) {
+            fs.writeFile(newPath, buf, function(err) {
                 if (err) {
                     res.json({ 'response': "error" });
                 } else {
