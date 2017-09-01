@@ -39,16 +39,17 @@ module.exports = function(app) {
     });
 
     app.post(route_folder, function(req, res) {
-        if (req.param('image') != undefined) {
+        var file_name = req.param('name');
+        if (file_name != undefined) {
             // Base64 String upload (Android app)
             var b64string = req.param('image');
             var buf = Buffer.from(b64string, 'base64');
-            var newPath = dirname + "/" + req.param('name');
-            fs.writeFile(newPath, buf, function(err) {
+            var newPath = dirname + "/" + file_name;
+            fs.writeFile(newPath, buf, file_name, function(err) {
                 if (err) {
                     res.json({ 'response': "error" });
                 } else {
-                    res.json({ 'response': "saved" });
+                    res.json({ 'response': "saved", 'file': file_name });
                 }
             });
         } else {
