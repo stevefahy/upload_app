@@ -46,9 +46,9 @@ module.exports = function(app) {
             var newPath = dirname + "/" + req.param('name');
             fs.writeFile(newPath, buf, function(err) {
                 if (err) {
-                    res.json({ 'response': "Error" });
+                    res.json({ 'response': "error" });
                 } else {
-                    res.json({ 'response': "Saved" });
+                    res.json({ 'response': "saved" });
                 }
             });
         } else {
@@ -65,13 +65,12 @@ module.exports = function(app) {
                     var file_name = this.openedFiles[i].name;
                     /* Location where we want to copy the uploaded file */
                     var newPath = dirname + "/" + file_name;
-                    fsextra.copy(temp_path, newPath, function(err) {
+                    fsextra.copy(temp_path, newPath, file_name, function(err) {
                         if (err) {
                             console.error(err);
-                            res.json({ 'response': "Error" });
+                            res.json({ 'response': "error" });
                         } else {
-                            console.log("success!");
-                            res.json({ 'response': "Saved" });
+                            res.json({ 'response': "saved", 'file': file_name });
                         }
                     });
                 }
