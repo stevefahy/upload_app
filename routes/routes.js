@@ -20,7 +20,7 @@ for (var k in interfaces) {
 // Samsung Series 9 laptop
 //if (addresses == '192.168.192.54') {
 // Dell XPS 13
-if (addresses == '192.168.192.60') {
+if (addresses == '192.168.192.59' || addresses == '192.168.43.199' || addresses == '10.70.216.59' || addresses == '192.168.43.62') {
     // Local
     var dirname = "../upload_dir/images";
     var route_folder = '/upload';
@@ -47,6 +47,7 @@ module.exports = function(app) {
             var newPath = dirname + "/" + file_name;
             fs.writeFile(newPath, buf, function(err) {
                 if (err) {
+                    //console.log('error');
                     res.json({ 'response': "error" });
                 } else {
                     res.json({ 'response': "saved", 'file': file_name });
@@ -68,7 +69,7 @@ module.exports = function(app) {
                     var newPath = dirname + "/" + file_name;
                     fsextra.copy(temp_path, newPath, file_name, function(err) {
                         if (err) {
-                            console.error(err);
+                            //console.error(err);
                             res.json({ 'response': "error" });
                         } else {
                             res.json({ 'response': "saved", 'file': file_name });
@@ -87,7 +88,7 @@ module.exports = function(app) {
 
         var img = fs.readFile(dirname + "/" + file, function(err, content) {
             if (err) {
-                console.log(err);
+                //console.log(err);
             } else {
                 //specify the content type in the response will be an image
                 res.writeHead(200, { 'Content-Type': 'image/jpg' });
