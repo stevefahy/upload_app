@@ -20,13 +20,16 @@ for (var k in interfaces) {
 // Samsung Series 9 laptop
 //if (addresses == '192.168.192.54') {
 // Dell XPS 13
-if (addresses == '192.168.192.59' || addresses == '192.168.43.199' || addresses == '10.70.216.59' || addresses == '192.168.43.62') {
+console.log(addresses);
+if (addresses.includes('192.168.192.64') || addresses.includes('192.168.192.59') || addresses.includes('192.168.43.199') || addresses.includes('10.70.216.59') || addresses.includes('192.168.43.62')) {
     // Local
+    console.log('local');
     var dirname = "../upload_dir/images";
     var route_folder = '/upload';
 } else {
+    console.log('server');
     // Remote
-    var dirname = "/home/steve/upload_dir/images";
+    var dirname = "/var/www/upload_dir/images";
     var route_folder = '/';
 }
 
