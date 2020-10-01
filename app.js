@@ -10,8 +10,8 @@ var port = process.env.PORT || 8060;
 
 // Configuration
 app.use(express.static(__dirname + '/public'));
-app.use(connect.cookieParser());
-app.use(connect.logger('dev'));
+// app.use(connect.cookieParser());
+// app.use(connect.logger('dev'));
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
